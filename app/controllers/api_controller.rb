@@ -4,4 +4,11 @@ class ApiController < ApplicationController
     tasks = Task.all
     render json: tasks
   end
+  def task
+    if task = Task.find_by(id: params[:id])
+      render json: task
+    else
+      render status: 404
+    end
+  end
 end
