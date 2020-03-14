@@ -8,7 +8,7 @@ class ApiController < ApplicationController
     tasks = Task.all
     task = Task.new(order: tasks.count, title: params[:title], description: params[:description])
     if task.save
-      render status: 200
+      render json: task
     else
       render status: 400
     end
