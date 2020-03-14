@@ -15,8 +15,8 @@ class ApiController < ApplicationController
   end
   def update
     if task = Task.find_by(id: params[:id])
-      if task.update(order: params[:order], title: params[:title], description: params[:description])
-        render status: 200
+      if task.update(title: params[:title], description: params[:description])
+        render json: task
       else
         render status: 400
       end
