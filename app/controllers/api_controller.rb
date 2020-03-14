@@ -26,8 +26,14 @@ class ApiController < ApplicationController
   end
   def delete
     if task = Task.find_by(id: params[:id])
+      deleteOrder = task.order
       task.destroy
-      render status: 200
+      tasks = Task.where('"order" > ?', deleteOrder)
+      tasks.each do |task|
+        task.order -= 1
+        task.save
+      end
+      render json: Task.all
     else
       render status: 404
     end
